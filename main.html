@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="marketingApp">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Marketing Website</title>
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
+  <style>
+    :root {
+      --primary-color: #0d6efd;
+      --primary-hover: #084298;
+      --light-bg: #f8f9fa;
+      --dark-text: #212529;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background-color: white;
+      color: var(--dark-text);
+      line-height: 1.6;
+    }
+
+    .container {
+      width: 90%;
+      max-width: 1100px;
+      margin: auto;
+    }
+
+    .navbar {
+      background: #fff;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+      padding: 20px 0;
+      position: sticky;
+      top: 0;
+      z-index: 999;
+    }
+
+    .nav-container {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .logo {
+      font-size: 1.7rem;
+      color: var(--primary-color);
+      text-decoration: none;
+      font-weight: bold;
+    }
+
+    .nav-links {
+      list-style: none;
+      display: flex;
+      gap: 25px;
+    }
+
+    .nav-links a {
+      color: var(--dark-text);
+      text-decoration: none;
+      padding: 8px 14px;
+      border-radius: 4px;
+      transition: background 0.3s, color 0.3s;
+    }
+
+    .nav-links a:hover {
+      background-color: var(--primary-color);
+      color: #fff;
+    }
+
+    .hero {
+      background: var(--primary-color);
+      color: white;
+      padding: 100px 20px;
+      text-align: center;
+    }
+
+    .hero h1 {
+      font-size: 3rem;
+      margin-bottom: 15px;
+    }
+
+    .hero p {
+      font-size: 1.25rem;
+    }
+
+    .btn {
+      background: white;
+      color: var(--primary-color);
+      padding: 12px 25px;
+      text-decoration: none;
+      display: inline-block;
+      margin-top: 25px;
+      border-radius: 6px;
+      font-weight: bold;
+      transition: background 0.3s, color 0.3s;
+    }
+
+    .btn:hover {
+      background-color: var(--primary-hover);
+      color: #fff;
+    }
+
+    section {
+      padding: 60px 20px;
+    }
+
+    .services, .about, .contact {
+      background: var(--light-bg);
+    }
+
+    .services h2, .about h2, .contact h2 {
+      text-align: center;
+      margin-bottom: 40px;
+    }
+
+    .service-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 30px;
+      justify-content: center;
+    }
+
+    .service {
+      background: white;
+      padding: 25px;
+      border-radius: 8px;
+      width: 300px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+      text-align: center;
+      transition: transform 0.3s;
+    }
+
+    .service:hover {
+      transform: translateY(-5px);
+    }
+
+    .about p {
+      max-width: 700px;
+      margin: auto;
+      text-align: center;
+    }
+
+    form {
+      max-width: 600px;
+      margin: auto;
+    }
+
+    form input, form textarea {
+      width: 100%;
+      margin: 10px 0;
+      padding: 14px;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      font-size: 1rem;
+    }
+
+    form button {
+      background: var(--primary-color);
+      color: white;
+      padding: 12px 25px;
+      border: none;
+      border-radius: 6px;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+
+    form button:hover {
+      background: var(--primary-hover);
+    }
+
+    .success {
+      color: green;
+      margin-top: 15px;
+      text-align: center;
+    }
+
+    footer {
+      background: #343a40;
+      color: white;
+      text-align: center;
+      padding: 30px 20px;
+    }
+
+    footer p {
+      margin: 0;
+    }
+
+    @media (max-width: 768px) {
+      .nav-links {
+        flex-direction: column;
+        gap: 15px;
+      }
+    }
+  </style>
+</head>
+<body ng-controller="MainController">
+
+  <nav class="navbar">
+    <div class="container nav-container">
+      <a href="#" class="logo">MarketingCo</a>
+      <ul class="nav-links">
+        <li><a href="#services">Services</a></li>
+        <li><a href="#about">About</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <header class="hero">
+    <div class="container">
+      <h1>{{ title }}</h1>
+      <p>{{ subtitle }}</p>
+      <a href="#contact" class="btn">Get Started</a>
+    </div>
+  </header>
+
+  <section class="services" id="services">
+    <div class="container">
+      <h2>Our Services</h2>
+      <div class="service-list">
+        <div class="service" ng-repeat="service in services">
+          <h3>{{ service.title }}</h3>
+          <p>{{ service.description }}</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="about" id="about">
+    <div class="container">
+      <h2>About Us</h2>
+      <p>{{ aboutText }}</p>
+    </div>
+  </section>
+
+  <section class="contact" id="contact">
+    <div class="container">
+      <h2>Contact Us</h2>
+      <form ng-submit="submitForm()">
+        <input type="text" ng-model="contact.name" placeholder="Your Name" required />
+        <input type="email" ng-model="contact.email" placeholder="Your Email" required />
+        <textarea ng-model="contact.message" placeholder="Your Message" required></textarea>
+        <button type="submit">Send</button>
+        <p class="success" ng-if="success">{{ success }}</p>
+      </form>
+    </div>
+  </section>
+
+  <footer>
+    <p>&copy; 2025 MarketingCo. All rights reserved.</p>
+  </footer>
+
+  <script>
+    angular.module('marketingApp', [])
+      .controller('MainController', function($scope) {
+        $scope.title = "Grow Your Business";
+        $scope.subtitle = "We help you boost your online presence and sales.";
+
+        $scope.services = [
+          { title: "Web Design", description: "Beautiful, responsive websites that convert." },
+          { title: "SEO Optimization", description: "Rank higher in search engines and get more traffic." },
+          { title: "Marketing Strategy", description: "Custom strategies to grow your business fast." }
+        ];
+
+        $scope.aboutText = "We’re a team of digital marketing experts committed to helping businesses grow with modern tools and creative strategies.";
+
+        $scope.contact = {};
+        $scope.success = '';
+
+        $scope.submitForm = function () {
+          if ($scope.contact.name && $scope.contact.email && $scope.contact.message) {
+            $scope.success = "Thank you for contacting us!";
+            $scope.contact = {};
+          }
+        };
+      });
+  </script>
+</body>
+</html>
